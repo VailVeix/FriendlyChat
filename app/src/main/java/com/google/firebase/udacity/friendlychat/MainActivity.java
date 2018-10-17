@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private String mUsername;
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference messagesDatabaseReference;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mUsername = ANONYMOUS;
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        messagesDatabaseReference = firebaseDatabase.getReference().child("messages");
+        databaseReference = firebaseDatabase.getReference().child("messages");
 
         // Initialize references to views
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Complete: Send messages on click
                 FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, null);
-
-                messagesDatabaseReference.push().setValue(friendlyMessage);
+                databaseReference.push().setValue(friendlyMessage);
 
                 // Clear input box
                 mMessageEditText.setText("");
